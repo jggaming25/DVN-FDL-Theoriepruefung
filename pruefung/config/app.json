@@ -1,0 +1,21 @@
+{
+  "port": 3456,
+  "sessionSecret": "dvn-fdl-theorie-pruefung-secret-key-2024",
+  "siteName": "DVN FDL Theoriefragebogen",
+  "baseUrl": "http://localhost:3456",
+  "roblox": {
+    "clientId": "DEINE_ROBLOX_CLIENT_ID",
+    "clientSecret": "DEIN_ROBLOX_CLIENT_SECRET",
+    "redirectUri": "http://localhost:3456/auth/callback",
+    "authorizeUrl": "https://apis.roblox.com/oauth/v1/authorize",
+    "tokenUrl": "https://apis.roblox.com/oauth/v1/token",
+    "userInfoUrl": "https://apis.roblox.com/oauth/v1/userinfo"
+  },
+  "hrRoles": [
+    12345678,
+    87654321
+  ],
+  "maxAttempts": 2,
+  "appealCooldownMs": 5000,
+  "notificationApiKey": ""
+}
