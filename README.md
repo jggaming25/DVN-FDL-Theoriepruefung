@@ -22,14 +22,14 @@ Roblox-gestützte Theorieprüfung für GitHub Pages + Render Backend.
    ROBLOX_CLIENT_SECRET=dein_secret
    ROBLOX_NOTIFY_KEY=optional
    HR_ROLES=12345678,87654321
-   BASE_URL=https://dein-backend.onrender.com
-   FRONTEND_URL=https://dein-user.github.io/dvn-pruefung
+    BASE_URL=https://dvn-pruefung-backend.onrender.com
+    FRONTEND_URL=https://jggaming25.github.io/DVN-FDL-Theorie-Pruefung
    SESSION_SECRET=eigenes_geheimnis
    ```
 
 2. **Frontend:** `index.html` + `fragen.js` + `bilder/` auf GitHub Pages hosten
 3. **Backend:** `server.js` auf Render deployen (`npm start`)
-4. In `index.html` oben `const API = ...` auf deine Backend-URL setzen
+4. `const API` in `index.html` zeigt bereits auf `https://dvn-pruefung-backend.onrender.com`
 5. Eigenes Logo als `logo.png` oder `logo.svg` in `bilder/` ablegen
 
 ## Fragen bearbeiten
