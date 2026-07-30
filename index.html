@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>DVN FDL Theoriefragebogen</title>
+<script src="fragen.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--red:#CC0000;--red-d:#990000;--red-l:#FFE5E5;--green:#2E7D32;--green-l:#E8F5E9;--gray:#F5F5F5;--gray2:#E0E0E0;--gray6:#757575;--gray9:#212121;--radius:8px}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--gray);color:var(--gray9);min-height:100vh}
+.nav{background:#fff;border-bottom:2px solid var(--red);padding:0 16px;height:56px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-l{display:flex;align-items:center;gap:12px}
+.nav-logo{height:32px;width:auto}
+.nav-brand{font-size:17px;font-weight:700;color:var(--red);text-decoration:none}
+.nav-tabs{display:flex;gap:4px}
+.nav-tab{padding:6px 16px;border-radius:20px;color:var(--gray6);text-decoration:none;font-size:14px;font-weight:500;cursor:pointer}
+.nav-tab:hover,.nav-tab.akt{background:var(--red);color:#fff}
+.nav-r{display:flex;align-items:center;gap:12px}
+.avatar{width:30px;height:30px;border-radius:50%;border:2px solid var(--gray2)}
+.dname{font-weight:600;font-size:14px}
+.badge{background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border:2px solid transparent;border-radius:var(--radius);font-size:14px;font-weight:600;cursor:pointer;text-decoration:none;font-family:inherit;transition:.2s}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn-p{background:var(--red);color:#fff;border-color:var(--red)}
+.btn-p:hover:not(:disabled){background:var(--red-d)}
+.btn-o{background:0 0;color:var(--gray6);border-color:var(--gray2)}
+.btn-o:hover{border-color:var(--red);color:var(--red)}
+.btn-s{background:var(--green);color:#fff}
+.btn-d{background:var(--red);color:#fff}
+.btn-sm{padding:5px 14px;font-size:13px}
+.btn-lg{padding:14px 28px;font-size:16px}
+.btn-w{width:100%;justify-content:center}
+.btn-rb{background:#00A2FF;border-color:#00A2FF;color:#fff}
+.container{max-width:960px;margin:0 auto;padding:24px 16px}
+.card{background:#fff;border-radius:var(--radius);padding:20px 24px;box-shadow:0 1px 3px rgba(0,0,0,.08);margin-bottom:16px}
+.card-l{border-left:4px solid var(--gray2)}
+.card-l.gr{border-left-color:var(--green)}
+.card-l.rd{border-left-color:var(--red)}
+.card-l.or{border-left-color:#FF9800}
+.card-l.bl{border-left-color:#1565C0}
+.form-i{width:100%;padding:10px 14px;border:2px solid var(--gray2);border-radius:var(--radius);font-size:14px;font-family:inherit;background:#fff;transition:.2s}
+.form-i:focus{outline:0;border-color:var(--red)}
+.form-i.er{color:var(--red);border-color:var(--red)}
+.alert{padding:12px 16px;border-radius:var(--radius);font-size:14px;margin-bottom:12px}
+.alert-e{background:#FFEBEE;color:#B71C1C;border:1px solid #FFCDD2}
+.alert-s{background:var(--green-l);color:#1B5E20;border:1px solid #C8E6C9}
+.pag{display:none}
+.pag.akt{display:block}
+.grid{display:grid;gap:12px}
+.flex{display:flex;gap:8px;align-items:center}
+.l{text-align:center}
+.captcha-b{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.captcha-b svg{display:block}
+.captcha-i{font-size:18px;text-align:center;letter-spacing:4px;max-width:140px}
+.q-card{border:1px solid var(--gray2);margin-bottom:16px}
+.q-h{display:flex;align-items:center;gap:10px;padding-bottom:10px;border-bottom:1px solid var(--gray2);margin-bottom:12px;font-size:13px}
+.q-nr{font-weight:700;color:var(--red)}
+.q-pts{margin-left:auto;color:var(--gray6);font-size:13px}
+.q-badge{font-size:10px;padding:2px 10px;border-radius:10px;font-weight:600}
+.q-badge.sc{background:#E3F2FD;color:#0D47A1}
+.q-badge.mc{background:#F3E5F5;color:#4A148C}
+.q-badge.ft{background:#FFF3E0;color:#E65100}
+.q-badge.dd{background:#E0F2F1;color:#004D40}
+.q-badge.st{background:#FFF8E1;color:#F57F17}
+.q-badge.ns{background:#E8EAF6;color:#1A237E}
+.q-badge.dt{background:#FBE9E7;color:#BF360C}
+.q-badge.ti{background:#F1F8E9;color:#33691E}
+.q-badge.fl{background:#ECEFF1;color:#37474F}
+.q-titel{font-size:15px;font-weight:500;margin-bottom:12px}
+.q-bild img{max-width:100%;max-height:200px;border-radius:6px;margin-bottom:12px}
+.opt{display:grid;gap:6px}
+.opt-l{padding:10px 14px;border:2px solid var(--gray2);border-radius:var(--radius);cursor:pointer;font-size:14px;transition:.2s;display:flex;align-items:center;gap:10px}
+.opt-l:hover{border-color:var(--red);background:var(--red-l)}
+.opt-l input{width:18px;height:18px;accent-color:var(--red);flex-shrink:0}
+.opt-l:has(input:checked){border-color:var(--red);background:var(--red-l)}
+.ta{min-height:70px;resize:vertical}
+.cc{font-size:12px;color:var(--gray6);margin-top:4px}
+.stars{display:flex;gap:4px}
+.star{font-size:30px;cursor:pointer;color:var(--gray2);transition:.15s;user-select:none}
+.star.an{color:#FFC107}
+.star.ho{color:#FFC107}
+.sl{font-size:13px;color:var(--gray6);margin-left:10px}
+.slab{display:flex;justify-content:space-between;font-size:13px;color:var(--gray6);margin-bottom:4px}
+.sc-in{max-width:180px}
+.dz{border:2px dashed var(--gray2);border-radius:var(--radius);padding:24px;text-align:center;color:var(--gray6);cursor:pointer;transition:.2s;position:relative}
+.dz:hover{border-color:var(--red);background:var(--red-l)}
+.dz input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.dz p{margin:4px 0;font-weight:500;font-size:13px}
+.fn{margin-top:6px;padding:6px 10px;background:var(--green-l);border-radius:6px;font-size:13px}
+.hr-tab{padding:10px 20px;border:none;background:0 0;font-size:14px;font-weight:600;color:var(--gray6);cursor:pointer;border-bottom:3px solid transparent;font-family:inherit}
+.hr-tab.akt{color:var(--red);border-bottom-color:var(--red)}
+.hr-tab:hover{color:var(--red)}
+.hr-ti{display:none}
+.hr-ti.akt{display:block}
+.tbl{background:#fff;border-radius:var(--radius);overflow:hidden}
+.tbl-h{display:grid;padding:10px 16px;background:var(--gray);font-size:12px;font-weight:700;color:var(--gray6);text-transform:uppercase}
+.tbl-r{display:grid;padding:12px 16px;border-top:1px solid var(--gray);align-items:center;font-size:14px}
+.tbl-r:hover{background:var(--gray)}
+.tbl-2{grid-template-columns:2fr 1fr 1.5fr 1.5fr}
+.tbl-3{grid-template-columns:2fr 1.5fr 1.5fr}
+.tbl-4{grid-template-columns:2fr .8fr 1fr 1fr 1.5fr}
+.eq-card{border:1px solid var(--gray2);margin-bottom:12px}
+.eq-card .q-h{margin-bottom:0;padding-bottom:0;border:none}
+.eq-ant{background:var(--gray);border-radius:6px;padding:10px;font-size:14px;margin:10px 0}
+.eq-pts{display:flex;align-items:center;gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid var(--gray2);font-size:14px}
+.eq-pts input{max-width:100px;text-align:center}
+.eq-fb{margin-top:8px}
+.eq-fb label{font-size:13px;font-weight:500;display:block;margin-bottom:4px}
+.stat{padding:2px 10px;border-radius:10px;font-size:12px;font-weight:600}
+.stat-aktiv{background:#FFF3E0;color:#E65100}
+.stat-wartet{background:#E3F2FD;color:#0D47A1}
+.stat-bestanden{background:var(--green-l);color:#1B5E20}
+.stat-durchgefallen{background:#FFEBEE;color:#B71C1C}
+.eq-richtig{color:var(--green);font-size:13px;margin-top:4px}
+@media(max-width:640px){.nav-tabs{display:none}.container{padding:16px 10px}}
+</style>
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+const API = location.hostname==='localhost'||location.hostname==='127.0.0.1' ? 'http://localhost:3000' : 'https://dein-backend.onrender.com';
+
+let USER = null, TOKEN = null;
+
+function qs(s) { return document.querySelector(s); }
+function qsa(s) { return document.querySelectorAll(s); }
+
+// Router
+function route() {
+  const h = location.hash.slice(1) || 'login';
+  const [pag, ...params] = h.split('?');
+  const p = new URLSearchParams(params.join('?'));
+  if (pag==='login') { if (p.get('token')) checkToken(p.get('token')); else if (p.get('e')) showSeite('login',p.get('e')); else showSeite('login'); }
+  else if (!TOKEN) { location.hash='#login'; return; }
+  else if (pag==='dashboard') loadDashboard();
+  else if (pag==='exam') loadExam();
+  else if (pag==='ergebnis') loadErgebnis(p.get('id'));
+  else if (pag==='hr') loadHR();
+  else if (pag==='hr-pruefung') loadHREval(p.get('id'));
+  else if (pag==='gesperrt') showSeite('gesperrt');
+  else showSeite('login');
+}
+window.addEventListener('hashchange', route);
+
+function showSeite(id, err) {
+  let h = '';
+  if (id==='login') h = loginHTML(err);
+  else if (id==='gesperrt') h = gesperrtHTML();
+  document.getElementById('app').innerHTML = h;
+  if (id==='login') initCaptcha();
+  else if (id==='gesperrt') initAppeal();
+}
+
+function navHTML() {
+  if (!USER) return '';
+  return `<nav class="nav">
+    <div class="nav-l">
+      <img src="/bilder/logo.png" alt="" class="nav-logo" onerror="this.style.display='none'">
+      <a href="#dashboard" class="nav-brand">DVN FDL Theoriefragebogen</a>
+      <div class="nav-tabs">
+        <a href="#dashboard" class="nav-tab">Prüfung</a>
+        ${USER.is_hr ? '<a href="#hr" class="nav-tab">HR Bereich</a>' : ''}
+      </div>
+    </div>
+    <div class="nav-r">
+      ${USER.bild ? `<img src="${USER.bild}" alt="" class="avatar" onerror="this.style.display='none'">` : ''}
+      <span class="dname">${USER.name}</span>
+      ${USER.is_hr ? '<span class="badge">HR</span>' : ''}
+      <button class="btn btn-sm btn-o" onclick="logout()">Abmelden</button>
+    </div>
+  </nav>`;
+}
+
+function logout() {
+  TOKEN = null; USER = null; location.hash = '#login';
+}
+
+// API call helper
+async function api(method, url, data) {
+  const opts = { method, headers: {} };
+  if (data instanceof FormData) { opts.body = data; }
+  else if (data) { opts.headers['Content-Type'] = 'application/json'; opts.body = JSON.stringify(data); }
+  const r = await fetch(API+url, opts);
+  return r.json();
+}
+
+async function apiGet(url) { return api('GET', url+'&token='+TOKEN); }
+async function apiPost(url, data) {
+  if (data instanceof FormData) { data.append('token', TOKEN); return api('POST', url, data); }
+  return api('POST', url, { ...data, token: TOKEN });
+}
+
+// Check token from OAuth callback
+async function checkToken(tok) {
+  TOKEN = tok;
+  const d = await api('POST', '/api/me', { token: tok });
+  if (d.user) {
+    USER = d.user;
+    location.hash = USER.gesperrt ? '#gesperrt' : '#dashboard';
+  } else {
+    TOKEN = null; showSeite('login','Anmeldung fehlgeschlagen');
+  }
+}
+
+// LOGIN
+function loginHTML(err) {
+  return `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--red),var(--red-d));padding:20px">
+    <div class="card" style="max-width:420px;width:100%;padding:32px;text-align:center">
+      <div style="margin-bottom:12px"><img src="/bilder/logo.png" alt="" style="height:60px" onerror="this.style.display='none'"></div>
+      <h1 style="font-size:22px;margin-bottom:4px">DVN FDL Theoriefragebogen</h1>
+      <p style="color:var(--gray6);font-size:14px;margin-bottom:24px">Theorieprüfung für die Fahrerlaubnis</p>
+      ${err ? `<div class="alert alert-e">${err}</div>` : ''}
+      <div style="margin-bottom:20px;text-align:left">
+        <h3 style="font-size:15px;margin-bottom:4px">Sicherheitsüberprüfung</h3>
+        <p style="font-size:13px;color:var(--gray6);margin-bottom:10px">Bitte löse die Rechenaufgabe:</p>
+        <div class="captcha-b">
+          <div id="captcha-svg"></div>
+          <button class="btn btn-sm btn-o" onclick="loadCaptcha()" style="padding:4px 8px">↻</button>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <input type="text" id="cap-ant" class="form-i captcha-i" placeholder="?" maxlength="5" autocomplete="off">
+          <div id="cap-fb" style="font-size:13px;font-weight:600"></div>
+        </div>
+      </div>
+      <button id="login-btn" class="btn btn-rb btn-w" disabled onclick="loginClick()">Mit Roblox anmelden</button>
+      <p style="margin-top:20px;font-size:12px;color:var(--gray6)">Nur für autorisierte Teilnehmer</p>
+    </div>
+  </div>`;
+}
+
+let CAP_ID = null, CAP_OK = false;
+
+async function loadCaptcha() {
+  const d = await api('GET', '/api/captcha');
+  document.getElementById('captcha-svg').innerHTML = d.svg;
+  CAP_ID = d.id; CAP_OK = false;
+  document.getElementById('login-btn').disabled = true;
+  document.getElementById('cap-fb').textContent = '';
+  document.getElementById('cap-ant').value = '';
+}
+
+async function verifyCaptcha() {
+  const ant = document.getElementById('cap-ant').value.trim();
+  if (!ant) return;
+  const d = await api('POST', '/api/captcha/verify', { id: CAP_ID, answer: ant });
+  const fb = document.getElementById('cap-fb');
+  if (d.ok) {
+    fb.textContent = '✓ Richtig'; fb.style.color = 'var(--green)';
+    document.getElementById('login-btn').disabled = false;
+    CAP_OK = d.token;
+  } else {
+    fb.textContent = '✗ Falsch'; fb.style.color = 'var(--red)';
+    setTimeout(loadCaptcha, 800);
+  }
+}
+
+function loginClick() {
+  if (!CAP_OK) { verifyCaptcha(); return; }
+  window.location.href = API + '/api/auth/login?captcha=' + CAP_OK;
+}
+
+function initCaptcha() {
+  if (!document.getElementById('captcha-svg')) return;
+  loadCaptcha();
+  document.getElementById('cap-ant').addEventListener('keydown', e => { if (e.key==='Enter') { e.preventDefault(); verifyCaptcha(); } });
+}
+
+// DASHBOARD
+async function loadDashboard() {
+  const d = await apiGet('/api/versuche');
+  const vs = d.versuche || [];
+  const max = 2 + (USER.bonus || 0);
+  const offen = vs.find(v => v.status==='aktiv');
+  document.getElementById('app').innerHTML = navHTML() + `<div class="container">
+    <h1 style="margin-bottom:4px">Willkommen, ${USER.name}!</h1>
+    <p style="color:var(--gray6);margin-bottom:20px">Theorieprüfung - Übersicht</p>
+    ${vs.length ? `<h2 style="font-size:16px;margin-bottom:10px">Deine Versuche</h2>
+    <div class="grid">${vs.map(v => {
+      const statusClass = { aktiv:'or', wartet:'bl', bestanden:'gr', durchgefallen:'rd' }[v.status]||'';
+      const statusText = { aktiv:'In Bearbeitung', wartet:'Wird ausgewertet', bestanden:'Bestanden ✓', durchgefallen:'Nicht bestanden ✗' }[v.status]||v.status;
+      return `<div class="card card-l ${statusClass}">
+        <div class="flex" style="justify-content:space-between;margin-bottom:6px">
+          <span style="font-weight:600">Versuch #${v.nummer}</span>
+          <span class="stat stat-${v.status}">${statusText}</span>
+        </div>
+        ${v.status==='bestanden'||v.status==='durchgefallen' ? `<div style="font-size:18px;font-weight:700;color:var(--red);margin-bottom:4px">${Math.round(v.punkte*10)/10}/${v.max_punkte} Punkte</div>` : ''}
+        ${v.feedback ? `<div style="font-size:13px;color:var(--gray6);background:var(--gray);padding:8px 12px;border-radius:6px;margin-bottom:8px"><strong>Feedback:</strong> ${v.feedback}</div>` : ''}
+        ${v.status==='aktiv' ? '<a href="#exam" class="btn btn-sm btn-p">Weitermachen</a>' : ''}
+        ${v.status==='bestanden'||v.status==='durchgefallen' ? `<a href="#ergebnis?id=${v.id}" class="btn btn-sm btn-o">Details</a>` : ''}
+      </div>`;
+    }).join('')}</div>` : ''}
+    <div style="margin-top:20px;text-align:center">
+      ${offen ? `<div class="card" style="border:2px solid var(--red);text-align:center">
+        <h3>Aktiver Versuch</h3>
+        <p style="color:var(--gray6);font-size:14px;margin:8px 0">Setze deinen angefangenen Versuch fort!</p>
+        <a href="#exam" class="btn btn-p btn-lg">Prüfung fortsetzen</a>
+      </div>` : (!USER.is_hr && !USER.gesperrt && vs.filter(v=>v.status!=='aktiv').length < max) ? `<div class="card" style="text-align:center">
+        <h3>Neue Prüfung starten</h3>
+        <p style="color:var(--gray6);font-size:14px;margin:8px 0">Du hast noch ${max - vs.filter(v=>v.status!=='aktiv').length} von ${max} Versuche(n) frei.</p>
+        <a href="#exam" class="btn btn-p btn-lg">Prüfung starten</a>
+      </div>` : USER.gesperrt ? `<div class="card" style="text-align:center">
+        <h3>Zugriff gesperrt</h3>
+        <p style="color:var(--gray6);font-size:14px;margin:8px 0">Du hast alle Versuche aufgebraucht.</p>
+        <a href="#gesperrt" class="btn btn-o">Details</a>
+      </div>` : ''}
+    </div>
+  </div>`;
+}
+
+// EXAM
+async function loadExam() {
+  const d = await apiGet('/api/exam');
+  if (!d.fragen) { location.hash='#dashboard'; return; }
+  document.getElementById('app').innerHTML = navHTML() + `<div class="container">
+    <h1 style="font-size:20px;margin-bottom:4px">Theorieprüfung</h1>
+    <p style="color:var(--gray6);font-size:14px;margin-bottom:16px">${d.fragen.length} Fragen</p>
+    <form id="ex-form" enctype="multipart/form-data">
+      ${d.fragen.map((q,i) => qHTML(q,i)).join('')}
+      <div id="ex-errors" style="display:none"></div>
+      <div style="display:flex;justify-content:space-between;gap:12px;margin-top:20px">
+        <button type="button" class="btn btn-o" onclick="saveExam()">Zwischenspeichern</button>
+        <button type="submit" class="btn btn-p btn-lg">Prüfung abgeben</button>
+      </div>
+    </form>
+  </div>`;
+  initStarRating();
+  initFileUpload();
+  initCharCounter();
+  document.getElementById('ex-form').addEventListener('submit', submitExam);
+}
+
+function qHTML(q, i) {
+  const typN = { singleChoice:'Einfachauswahl', multipleChoice:'Mehrfachauswahl', freetext:'Freitext', dropdown:'Dropdown', stars:'Bewertung', numberScale:'Zahlenskala', date:'Datum', time:'Uhrzeit', file:'Datei-Upload' };
+  const typCls = { singleChoice:'sc', multipleChoice:'mc', freetext:'ft', dropdown:'dd', stars:'st', numberScale:'ns', date:'dt', time:'ti', file:'fl' };
+  let ansHTML = '';
+  if (q.typ==='singleChoice') {
+    ansHTML = `<div class="opt">${q.optionen.map((o,j)=>`<label class="opt-l"><input type="radio" name="q_${q.id}" value="${j}"><span>${o}</span></label>`).join('')}</div>`;
+  } else if (q.typ==='multipleChoice') {
+    ansHTML = `<div class="opt">${q.optionen.map((o,j)=>`<label class="opt-l"><input type="checkbox" name="q_${q.id}" value="${j}"><span>${o}</span></label>`).join('')}</div>`;
+  } else if (q.typ==='freetext') {
+    ansHTML = `<textarea name="q_${q.id}" class="form-i ta" ${q.maxZeichen ? `data-max="${q.maxZeichen}"` : ''} placeholder="Deine Antwort..."></textarea>
+      ${q.maxZeichen ? `<div class="cc"><span class="cnt">0</span> / ${q.maxZeichen} Zeichen <span style="font-style:italic;color:var(--gray6)">(Leerzeichen zählen nicht)</span></div>` : ''}`;
+  } else if (q.typ==='dropdown') {
+    ansHTML = `<select name="q_${q.id}" class="form-i" style="max-width:400px"><option value="">-- Bitte wählen --</option>${q.optionen.map((o,j)=>`<option value="${j}">${o}</option>`).join('')}</select>`;
+  } else if (q.typ==='stars') {
+    ansHTML = `<div class="stars" data-max="${q.maxSterne}"><input type="hidden" name="q_${q.id}">${Array.from({length:q.maxSterne},(_,s)=>`<span class="star" data-v="${s+1}">☆</span>`).join('')}</div><span class="sl">0 / ${q.maxSterne}</span>`;
+  } else if (q.typ==='numberScale') {
+    ansHTML = `<div class="slab"><span>${q.min}</span><span>${q.max}</span></div><input type="number" name="q_${q.id}" class="form-i sc-in" min="${q.min}" max="${q.max}" step="${q.schritt||1}" placeholder="${q.min}-${q.max} (Schritt: ${q.schritt||1})">`;
+  } else if (q.typ==='date') {
+    ansHTML = `<input type="date" name="q_${q.id}" class="form-i" style="max-width:220px">`;
+  } else if (q.typ==='time') {
+    ansHTML = `<input type="time" name="q_${q.id}" class="form-i" style="max-width:180px">`;
+  } else if (q.typ==='file') {
+    ansHTML = `<div class="dz"><input type="file" name="q_${q.id}" accept="${(q.erlaubteTypen||['image/jpeg','image/png','application/pdf']).join(',')}">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      <p>Klicke oder ziehe eine Datei hierher</p></div><div class="fn" style="display:none"></div>`;
+  }
+  return `<div class="card q-card" data-id="${q.id}" data-typ="${q.typ}">
+    <div class="q-h"><span class="q-nr">Frage ${i+1}</span><span class="q-pts">${q.maxPunkte||0} Punkte</span><span class="q-badge ${typCls[q.typ]}">${typN[q.typ]||q.typ}</span></div>
+    <p class="q-titel">${q.titel}</p>
+    ${q.bild ? `<div class="q-bild"><img src="${q.bild}" alt="" onerror="this.parentElement.style.display='none'"></div>` : ''}
+    <div class="q-ant">${ansHTML}</div>
+  </div>`;
+}
+
+function initStarRating() {
+  document.querySelectorAll('.stars').forEach(r => {
+    const st = r.querySelectorAll('.star');
+    const inp = r.querySelector('input');
+    const lb = r.parentElement.querySelector('.sl');
+    st.forEach(s => {
+      s.addEventListener('click', ()=>{
+        const v = parseInt(s.dataset.v);
+        inp.value = v;
+        st.forEach(x => x.classList.toggle('an', parseInt(x.dataset.v) <= v));
+        if (lb) lb.textContent = v + ' / ' + st.length;
+      });
+      s.addEventListener('mouseenter', ()=>{
+        const v = parseInt(s.dataset.v);
+        st.forEach(x => x.classList.toggle('ho', parseInt(x.dataset.v) <= v && !x.classList.contains('an')));
+      });
+      s.addEventListener('mouseleave', ()=>{ st.forEach(x => x.classList.remove('ho')); });
+    });
+  });
+}
+
+function initFileUpload() {
+  document.querySelectorAll('.dz input[type="file"]').forEach(inp => {
+    inp.addEventListener('change', function(){
+      const fn = this.parentElement.parentElement.querySelector('.fn');
+      if (this.files?.[0]) { fn.style.display='block'; fn.textContent='✓ '+this.files[0].name; this.parentElement.style.borderColor='#2E7D32'; }
+      else { fn.style.display='none'; this.parentElement.style.borderColor=''; }
+    });
+  });
+}
+
+function initCharCounter() {
+  document.querySelectorAll('.ta').forEach(ta => {
+    const max = parseInt(ta.dataset.max);
+    if (!max) return;
+    const cc = ta.parentElement.querySelector('.cc');
+    if (!cc) return;
+    ta.addEventListener('input', ()=>{
+      const cnt = ta.value.replace(/\s/g,'').length;
+      cc.querySelector('.cnt').textContent = cnt;
+      ta.classList.toggle('er', cnt > max);
+    });
+  });
+}
+
+async function saveExam() {
+  const btn = event.target;
+  btn.disabled = true; btn.textContent = 'Speichern...';
+  const fd = new FormData(document.getElementById('ex-form'));
+  const d = await apiPost('/api/exam/save', fd);
+  if (d.success) { btn.textContent = '✓ Gespeichert'; setTimeout(()=>{ btn.textContent='Zwischenspeichern'; btn.disabled=false; },2000); }
+  else { alert('Fehler'); btn.textContent='Zwischenspeichern'; btn.disabled=false; }
+}
+
+async function submitExam(e) {
+  e.preventDefault();
+  const errDiv = document.getElementById('ex-errors');
+  const errs = [];
+  document.querySelectorAll('.q-card').forEach(q => {
+    const i = Array.from(q.parentElement.children).indexOf(q);
+    const typ = q.dataset.typ;
+    if (typ==='singleChoice' && !q.querySelector('input:checked')) errs.push(`Frage ${i+1}: Bitte wählen`);
+    if (typ==='multipleChoice' && !q.querySelectorAll('input:checked').length) errs.push(`Frage ${i+1}: Bitte wählen`);
+    if (typ==='freetext') {
+      const ta = q.querySelector('textarea');
+      if (ta && !ta.value.trim()) errs.push(`Frage ${i+1}: Text eingeben`);
+      else if (ta) { const max=parseInt(ta.dataset.max); if (max && ta.value.replace(/\s/g,'').length > max) errs.push(`Frage ${i+1}: Max ${max} Zeichen`); }
+    }
+    if (typ==='dropdown' && q.querySelector('select') && !q.querySelector('select').value) errs.push(`Frage ${i+1}: Bitte wählen`);
+    if (typ==='stars' && !q.querySelector('input[type="hidden"]').value) errs.push(`Frage ${i+1}: Bewertung abgeben`);
+    if (typ==='numberScale') { const inp=q.querySelector('input[type="number"]'); if (inp && (inp.value===''||inp.value===undefined)) errs.push(`Frage ${i+1}: Wert eingeben`); }
+    if (typ==='date' && q.querySelector('input[type="date"]') && !q.querySelector('input[type="date"]').value) errs.push(`Frage ${i+1}: Datum wählen`);
+    if (typ==='time' && q.querySelector('input[type="time"]') && !q.querySelector('input[type="time"]').value) errs.push(`Frage ${i+1}: Uhrzeit eingeben`);
+    if (typ==='file' && !q.querySelector('input[type="file"]').files?.length) errs.push(`Frage ${i+1}: Datei hochladen`);
+  });
+  if (errs.length) {
+    errDiv.style.display='block'; errDiv.innerHTML='<div class="alert alert-e"><ul style="margin-left:16px">'+errs.map(e=>'<li>'+e+'</li>').join('')+'</ul></div>';
+    errDiv.scrollIntoView({behavior:'smooth'});
+    return;
+  }
+  if (!confirm('Prüfung wirklich abgeben?')) return;
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled=true; btn.textContent='Wird eingereicht...';
+  const fd = new FormData(document.getElementById('ex-form'));
+  const d = await apiPost('/api/exam/submit', fd);
+  if (d.success) location.hash='#dashboard';
+  else {
+    errDiv.style.display='block';
+    errDiv.innerHTML='<div class="alert alert-e"><ul style="margin-left:16px">'+(d.fehler||['Fehler']).map(e=>'<li>'+e+'</li>').join('')+'</ul></div>';
+    btn.disabled=false; btn.textContent='Prüfung abgeben';
+  }
+}
+
+// ERGEBNIS
+async function loadErgebnis(id) {
+  const d = await apiGet('/api/ergebnis/'+id);
+  if (!d.versuch) { location.hash='#dashboard'; return; }
+  const v = d.versuch, ant = d.antworten||[];
+  document.getElementById('app').innerHTML = navHTML() + `<div class="container">
+    <div class="card" style="text-align:center;${v.bestanden ? 'background:var(--green-l);border:2px solid #C8E6C9' : 'background:#FFEBEE;border:2px solid #FFCDD2'}">
+      <h1 style="font-size:26px;color:${v.bestanden ? '#1B5E20' : '#B71C1C'}">${v.bestanden ? 'Bestanden!' : 'Nicht bestanden'}</h1>
+      <div style="font-size:32px;font-weight:800;color:var(--red);margin:8px 0">${Math.round(v.punkte*10)/10} / ${v.max_punkte}</div>
+      ${v.feedback ? `<div style="background:rgba(255,255,255,.8);padding:10px;border-radius:6px;font-size:14px;margin-top:10px"><strong>Feedback:</strong> ${v.feedback}</div>` : ''}
+    </div>
+    <h2 style="font-size:16px;margin:16px 0 10px">Detailauswertung</h2>
+    ${d.fragen.map((q,i)=>{
+      const a = ant.find(x=>x.frage_id==q.id);
+      let antTxt = a?.antwort||'Keine Antwort';
+      if (q.typ==='singleChoice'||q.typ==='dropdown') antTxt = q.optionen[parseInt(a?.antwort)] || antTxt;
+      else if (q.typ==='multipleChoice') { try { antTxt = JSON.parse(a?.antwort||'[]').map(s=>q.optionen[s]).join(', ') || 'Keine Antwort'; } catch(e){} }
+      else if (q.typ==='file') antTxt = a?.antwort + (a?.datei ? ` <a href="/uploads/${a.datei}" target="_blank" style="font-size:12px">(Datei öffnen)</a>` : '');
+      return `<div class="card card-l ${a?.geprüft ? 'rd' : ''}">
+        <div class="flex" style="justify-content:space-between;font-size:13px;color:var(--gray6);margin-bottom:6px">
+          <span style="font-weight:700;color:var(--red)">Frage ${i+1}</span>
+          <span>${Math.round((a?.punkte||0)*10)/10} / ${q.maxPunkte||0}</span>
+        </div>
+        <p style="font-weight:500;margin-bottom:6px">${q.titel}</p>
+        <div style="font-size:14px;color:var(--gray6);background:var(--gray);padding:8px 10px;border-radius:6px">${antTxt}</div>
+        ${a?.feedback ? `<div style="margin-top:6px;font-size:13px;padding:6px 10px;background:var(--gray);border-radius:6px"><strong>Feedback:</strong> ${a.feedback}</div>` : ''}
+      </div>`;
+    }).join('')}
+    <div style="text-align:center;margin-top:16px"><a href="#dashboard" class="btn btn-p">Zurück</a></div>
+  </div>`;
+}
+
+// GESPERRT
+function gesperrtHTML() {
+  return navHTML() + `<div class="container"><div class="card" style="text-align:center;max-width:500px;margin:40px auto;padding:32px">
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="#CC0000" style="margin-bottom:12px"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg>
+    <h2 style="font-size:22px;margin-bottom:12px">Zugriff gesperrt</h2>
+    ${USER.anfrage_genutzt ? `<p>Du hast bereits eine zusätzliche Chance erhalten und genutzt. Keine weiteren Versuche möglich.</p>` :
+    USER.anfrage_offen ? `<p>Du hast bereits eine Anfrage gestellt. Warte auf die HR-Bearbeitung.</p><div style="margin-top:16px;color:var(--gray6)">Anfrage läuft...</div>` :
+    `<p>Du hast alle Versuche aufgebraucht.</p><p style="font-size:14px;color:var(--gray6);margin:8px 0">Du kannst einen zusätzlichen Versuch beantragen.</p>
+    <div style="margin-top:16px"><button id="appeal-btn" class="btn btn-p btn-lg" disabled onclick="requestAppeal()">Zusätzlichen Versuch anfragen</button>
+    <p id="appeal-cd" style="font-size:13px;color:var(--gray6);margin-top:8px">Bitte warte 5 Sekunden...</p>
+    <div id="appeal-fb" style="display:none;margin-top:10px"></div></div>`}
+  </div></div>`;
+}
+
+let appealCD = 5;
+function initAppeal() {
+  const btn = document.getElementById('appeal-btn');
+  if (!btn) return;
+  appealCD = 5;
+  const cd = document.getElementById('appeal-cd');
+  const timer = setInterval(() => {
+    appealCD--;
+    if (appealCD<=0) { clearInterval(timer); cd.textContent='Du kannst jetzt eine Anfrage stellen.'; btn.disabled=false; }
+    else cd.textContent='Bitte warte '+appealCD+' Sekunden...';
+  }, 1000);
+}
+
+async function requestAppeal() {
+  const btn = document.getElementById('appeal-btn');
+  btn.disabled=true; btn.textContent='Wird gesendet...';
+  const d = await apiPost('/api/appeal', {});
+  const fb = document.getElementById('appeal-fb');
+  fb.style.display='block';
+  if (d.success) {
+    fb.className='alert alert-s'; fb.textContent='Anfrage gesendet! HR-Mitarbeiter wird sie bearbeiten.';
+    btn.textContent='Gesendet';
+    setTimeout(()=>location.reload(),3000);
+  } else {
+    fb.className='alert alert-e'; fb.textContent=d.error||'Fehler';
+    btn.textContent='Erneut versuchen';
+    setTimeout(()=>btn.disabled=false,2000);
+  }
+}
+
+// HR
+async function loadHR() {
+  const [pen, com, app] = await Promise.all([apiGet('/api/hr/pending'), apiGet('/api/hr/completed'), apiGet('/api/hr/appeals')]);
+  document.getElementById('app').innerHTML = navHTML() + `<div class="container">
+    <h1 style="margin-bottom:4px">HR Bereich</h1>
+    <p style="color:var(--gray6);margin-bottom:16px">Verwaltung der Theorieprüfung</p>
+    <div style="display:flex;gap:4px;border-bottom:2px solid var(--gray2);margin-bottom:16px">
+      <button class="hr-tab akt" onclick="switchHR(this,'pen')">Ausstehend (${(pen.versuche||[]).length})</button>
+      <button class="hr-tab" onclick="switchHR(this,'app')">Anfragen (${(app.anfragen||[]).length})</button>
+      <button class="hr-tab" onclick="switchHR(this,'com')">Verlauf</button>
+    </div>
+    <div id="hr-pen" class="hr-ti akt">${hrTablePen(pen.versuche||[])}</div>
+    <div id="hr-app" class="hr-ti">${hrTableApp(app.anfragen||[])}</div>
+    <div id="hr-com" class="hr-ti">${hrTableCom(com.versuche||[])}</div>
+  </div>`;
+}
+
+function switchHR(el, id) {
+  document.querySelectorAll('.hr-tab').forEach(t=>t.classList.remove('akt'));
+  document.querySelectorAll('.hr-ti').forEach(t=>t.classList.remove('akt'));
+  el.classList.add('akt');
+  document.getElementById('hr-'+id).classList.add('akt');
+}
+
+function hrTablePen(vs) {
+  if (!vs.length) return '<div class="card" style="text-align:center;padding:40px;color:var(--gray6)">Keine ausstehenden Auswertungen.</div>';
+  return `<div class="tbl"><div class="tbl-h tbl-2"><span>Teilnehmer</span><span>Versuch</span><span>Eingereicht</span><span>Aktion</span></div>
+    ${vs.map(v=>`<div class="tbl-r tbl-2">
+      <span>${v.bild?`<img src="${v.bild}" class="avatar" style="width:24px;height:24px;vertical-align:middle;margin-right:6px">`:''}${v.name}</span>
+      <span>#${v.nummer}</span>
+      <span>${v.abgeschlossen?new Date(v.abgeschlossen+'Z').toLocaleString('de-DE'):'-'}</span>
+      <a href="#hr-pruefung?id=${v.id}" class="btn btn-sm btn-p">Auswerten</a>
+    </div>`).join('')}</div>`;
+}
+
+function hrTableApp(an) {
+  if (!an.length) return '<div class="card" style="text-align:center;padding:40px;color:var(--gray6)">Keine offenen Anfragen.</div>';
+  return `<div class="tbl"><div class="tbl-h tbl-3"><span>Teilnehmer</span><span>Angefragt</span><span>Aktion</span></div>
+    ${an.map(a=>`<div class="tbl-r tbl-3">
+      <span>${a.name}<br><small style="color:var(--gray6)">ID: ${a.uid}</small></span>
+      <span>${new Date(a.erstellt+'Z').toLocaleString('de-DE')}</span>
+      <div class="flex"><button class="btn btn-sm btn-s" onclick="hrAppeal(${a.id},'approve')">✓</button><button class="btn btn-sm btn-d" onclick="hrAppeal(${a.id},'deny')">✗</button></div>
+    </div>`).join('')}</div>`;
+}
+
+function hrTableCom(vs) {
+  if (!vs.length) return '<div class="card" style="text-align:center;padding:40px;color:var(--gray6)">Noch keine Auswertungen.</div>';
+  return `<div class="tbl"><div class="tbl-h tbl-4"><span>Teilnehmer</span><span>Versuch</span><span>Punkte</span><span>Status</span><span>Ausgewertet</span></div>
+    ${vs.map(v=>`<div class="tbl-r tbl-4">
+      <span>${v.bild?`<img src="${v.bild}" class="avatar" style="width:24px;height:24px;vertical-align:middle;margin-right:6px">`:''}${v.name}</span>
+      <span>#${v.nummer}</span>
+      <span>${Math.round(v.punkte*10)/10}/${v.max_punkte}</span>
+      <span class="stat stat-${v.status}">${v.bestanden?'Bestanden':'Durchgefallen'}</span>
+      <span>${v.abgeschlossen?new Date(v.abgeschlossen+'Z').toLocaleString('de-DE'):'-'}</span>
+    </div>`).join('')}</div>`;
+}
+
+async function hrAppeal(id, action) {
+  if (!confirm('Antrag '+(action==='approve'?'genehmigen':'ablehnen')+'?')) return;
+  const d = await apiPost('/api/hr/appeal/'+id+'/'+action, {});
+  if (d.success) location.reload();
+  else alert('Fehler: '+(d.error||'?'));
+}
+
+// HR EVALUATE
+async function loadHREval(id) {
+  const d = await apiGet('/api/hr/evaluate/'+id);
+  if (!d.versuch) { location.hash='#hr'; return; }
+  const v = d.versuch, ant = d.antworten||[];
+  const L = {1:1,6:0,10:1,11:1,19:0,20:2,2:[0,2],17:[0,1,2]};
+  document.getElementById('app').innerHTML = navHTML() + `<div class="container">
+    <div style="margin-bottom:16px"><a href="#hr" class="btn btn-sm btn-o">&larr; Zurück</a></div>
+    <h1 style="font-size:20px;margin-bottom:4px">Auswertung: ${v.name}</h1>
+    <p style="color:var(--gray6);font-size:14px;margin-bottom:16px">Versuch #${v.nummer} - ${v.abgeschlossen?new Date(v.abgeschlossen+'Z').toLocaleString('de-DE'):'-'}</p>
+    <form id="eval-form">
+      ${d.fragen.map((q,i)=>{
+        const a = ant.find(x=>x.frage_id==q.id);
+        let antTxt = a?.antwort||'Keine Antwort';
+        if (q.typ==='singleChoice'||q.typ==='dropdown') antTxt = q.optionen[parseInt(a?.antwort)] || antTxt;
+        else if (q.typ==='multipleChoice') { try { antTxt = JSON.parse(a?.antwort||'[]').map(s=>q.optionen[s]).join(', ') || 'Keine Antwort'; } catch(e){} }
+        else if (q.typ==='stars') { const n=parseInt(a?.antwort); antTxt = Array.from({length:n||0},()=>'★').join('')+Array.from({length:(q.maxSterne||5)-(n||0)},()=>'☆').join('')+' ('+(a?.antwort||'?')+'/'+q.maxSterne+')'; }
+        else if (q.typ==='file') antTxt = (a?.antwort||'Keine Datei')+(a?.datei?` <a href="/uploads/${a.datei}" target="_blank">öffnen</a>`:'');
+        const loes = L[q.id];
+        let richt = '';
+        if (loes!==undefined && q.optionen) richt = q.typ==='multipleChoice' ? 'Richtig: '+loes.map(x=>q.optionen[x]).join(', ') : 'Richtig: '+q.optionen[loes];
+        return `<div class="card eq-card">
+          <div class="q-h"><span class="q-nr">Frage ${i+1}</span></div>
+          <p style="font-weight:500;margin-bottom:6px">${q.titel}</p>
+          ${q.bild?`<div class="q-bild"><img src="${q.bild}" alt="" onerror="this.parentElement.style.display='none'"></div>`:''}
+          <div class="eq-ant"><strong>Antwort:</strong> ${antTxt}</div>
+          ${richt ? `<div class="eq-richtig">${richt}</div>` : ''}
+          <div class="eq-pts">
+            <label style="min-width:60px">Punkte:</label>
+            <input type="number" class="form-i" name="p_${q.id}" value="${a?.punkte||0}" min="0" max="${q.maxPunkte||0}" step="0.5" style="max-width:90px;text-align:center">
+            <span>/ ${q.maxPunkte||0}</span>
+          </div>
+          <div class="eq-fb"><label>Feedback:</label><textarea name="f_${q.id}" class="form-i" rows="2">${a?.feedback||''}</textarea></div>
+        </div>`;
+      }).join('')}
+      <div class="card">
+        <div style="font-size:16px;font-weight:600;margin-bottom:12px">Punkte gesamt: <span id="sum-pts">0</span> / ${d.fragen.reduce((a,q)=>a+(q.maxPunkte||0),0)}</div>
+        <div style="margin-bottom:12px"><label style="display:block;font-weight:500;margin-bottom:4px">Allgemeines Feedback:</label><textarea name="feedback" class="form-i" rows="3">${v.feedback||''}</textarea></div>
+        <div><label style="display:block;font-weight:600;font-size:16px;margin-bottom:8px">Entscheidung:</label>
+          <div class="flex" style="gap:12px">
+            <button type="button" class="btn btn-s btn-lg ents-btn" data-v="1" onclick="ents(this)">Bestanden</button>
+            <button type="button" class="btn btn-d btn-lg ents-btn" data-v="0" onclick="ents(this)">Nicht bestanden</button>
+            <input type="hidden" name="bestanden" id="ents-v">
+          </div>
+        </div>
+      </div>
+      <div style="text-align:center;padding:16px 0"><button type="submit" class="btn btn-p btn-lg">Auswertung speichern</button></div>
+    </form>
+  </div>`;
+  calcSum();
+  document.querySelectorAll('.eq-pts input').forEach(i=>i.addEventListener('input', calcSum));
+  document.getElementById('eval-form').addEventListener('submit', submitEval);
+}
+
+function ents(el) {
+  document.querySelectorAll('.ents-btn').forEach(b=>b.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('ents-v').value = el.dataset.v;
+}
+
+function calcSum() {
+  let s = 0;
+  document.querySelectorAll('.eq-pts input').forEach(i=>{const v=parseFloat(i.value); if(!isNaN(v))s+=v;});
+  const el = document.getElementById('sum-pts');
+  if (el) el.textContent = Math.round(s*10)/10;
+}
+
+async function submitEval(e) {
+  e.preventDefault();
+  if (!document.getElementById('ents-v').value) { alert('Bitte Entscheidung wählen.'); return; }
+  const btn = e.target.querySelector('button[type="submit"]');
+  btn.disabled=true; btn.textContent='Speichern...';
+  const fd = new FormData(e.target);
+  const d = await apiPost('/api/hr/evaluate/'+location.hash.match(/id=(\d+)/)[1], fd);
+  if (d.success) location.hash='#hr';
+  else { alert('Fehler: '+(d.error||'?')); btn.disabled=false; btn.textContent='Auswertung speichern'; }
+}
+
+// Init
+route();
+</script>
+</body>
+</html>
