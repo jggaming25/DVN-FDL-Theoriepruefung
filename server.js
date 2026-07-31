@@ -9,6 +9,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || 'http://localhost:3000';
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:5500';
+const FRONTEND_ORIGIN = new URL(FRONTEND_URL).origin;
 const ROBLOX_CLIENT_ID = process.env.ROBLOX_CLIENT_ID || 'DEINE_ID';
 const ROBLOX_CLIENT_SECRET = process.env.ROBLOX_CLIENT_SECRET || 'DEIN_SECRET';
 const ROBLOX_NOTIFY_KEY = process.env.ROBLOX_NOTIFY_KEY || '';
@@ -40,7 +41,7 @@ app.use('/bilder', express.static(path.join(__dirname, 'bilder')));
 const upload = multer({ dest: 'uploads/', limits: { fileSize: 10*1024*1024 } });
 
 app.use((req,res,next) => {
-  res.header('Access-Control-Allow-Origin', FRONTEND_URL);
+  res.header('Access-Control-Allow-Origin', FRONTEND_ORIGIN);
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
   res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   if (req.method === 'OPTIONS') return res.sendStatus(200);
