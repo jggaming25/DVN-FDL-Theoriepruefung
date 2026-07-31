@@ -159,7 +159,7 @@ function navHTML() {
   if (!USER) return '';
   return `<nav class="nav">
     <div class="nav-l">
-      <img src="/bilder/logo.png" alt="" class="nav-logo" onerror="this.style.display='none'">
+      <img src="bilder/logo.svg" alt="" class="nav-logo" onerror="this.style.display='none'">
       <a href="#dashboard" class="nav-brand">DVN FDL Theoriefragebogen</a>
       <div class="nav-tabs">
         <a href="#dashboard" class="nav-tab">Prüfung</a>
@@ -210,7 +210,7 @@ async function checkToken(tok) {
 function loginHTML(err) {
   return `<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--red),var(--red-d));padding:20px">
     <div class="card" style="max-width:420px;width:100%;padding:32px;text-align:center">
-      <div style="margin-bottom:12px"><img src="/bilder/logo.png" alt="" style="height:60px" onerror="this.style.display='none'"></div>
+      <div style="margin-bottom:12px"><img src="bilder/logo.svg" alt="" style="height:60px" onerror="this.style.display='none'"></div>
       <h1 style="font-size:22px;margin-bottom:4px">DVN FDL Theoriefragebogen</h1>
       <p style="color:var(--gray6);font-size:14px;margin-bottom:24px">Theorieprüfung für die Fahrerlaubnis</p>
       ${err ? `<div class="alert alert-e">${err}</div>` : ''}
